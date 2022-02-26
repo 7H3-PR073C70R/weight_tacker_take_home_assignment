@@ -71,14 +71,14 @@ class AddAndUpdateDialog extends HookConsumerWidget {
                       text: !isEdit
                           ? AppString.addButtonText
                           : AppString.editWeightText,
-                      onTap: () {
+                      onTap: () async {
                         try {
                           !isEdit
-                              ? ref.read(weightProvider).addWeight(Weight(
+                              ? await ref.read(weightProvider).addWeight(Weight(
                                   userWeight: double.tryParse(controller.text) ?? 0,
                                   id: '',
                                   date: Timestamp.now()))
-                              : ref.read(weightProvider).editWeight(weight!
+                              : await ref.read(weightProvider).editWeight(weight!
                                   .copyWith(
                                       userWeight:
                                           double.tryParse(controller.text) ?? 0));

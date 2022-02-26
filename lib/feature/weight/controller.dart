@@ -15,10 +15,10 @@ class WeightProvider extends ChangeNotifier {
   }
 
   get weightRepository => ref.read(weightRepositoryProvider);
-  void addWeight(Weight weight) {
+  Future<void> addWeight(Weight weight) async{
     try {
       setState();
-      weightRepository.addWeight(weight);
+      await weightRepository.addWeight(weight);
       setState();
     } catch (e) {
       setState();
@@ -26,10 +26,10 @@ class WeightProvider extends ChangeNotifier {
     }
   }
 
-  void editWeight(Weight weight) {
+  Future<void> editWeight(Weight weight) async {
     try {
       setState();
-      weightRepository.updateWeight(weight);
+      await weightRepository.updateWeight(weight);
       setState();
     } catch (e) {
       setState();

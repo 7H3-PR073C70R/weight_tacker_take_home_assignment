@@ -13,7 +13,7 @@ class WeightRepository {
       .doc(_userId)
       .collection('Added Weights');
 
-  Stream<QuerySnapshot<Object?>> get weightStream => _collectionPath.snapshots();
+  Stream<QuerySnapshot<Object?>> get weightStream => _collectionPath.orderBy('date', descending: true).snapshots();
 
   Future<void> addWeight(Weight weight) async {
     try {
