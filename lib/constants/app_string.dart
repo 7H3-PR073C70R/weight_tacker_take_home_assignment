@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/framework.dart';
-
 class AppString {
   static const anonymousLoginText = 'Login Anonymously';
   static const appStatementText = 'This app keep track of your weight.';

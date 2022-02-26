@@ -8,7 +8,6 @@ import 'package:weight_tracker/feature/weight/controller.dart';
 import 'package:weight_tracker/feature/weight/use_cases.dart/add_and_update_weight/add_and_update_dialog.dart';
 import '../../../constants/app_string.dart';
 import '../../../constants/app_text_styles.dart';
-import '../../../repositoy/weight_repository.dart';
 import '../model/weight.dart';
 import 'widgets/widget_card.dart';
 
