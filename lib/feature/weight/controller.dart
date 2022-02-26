@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weight_tracker/feature/weight/model/weight.dart';
@@ -48,6 +49,9 @@ class WeightProvider extends ChangeNotifier {
       rethrow;
     }
   }
+
+  Stream<QuerySnapshot<Object?>> get weightStream =>
+      weightRepository.weightStream;
 }
 
 final weightProvider = ChangeNotifierProvider((ref) => WeightProvider(ref));

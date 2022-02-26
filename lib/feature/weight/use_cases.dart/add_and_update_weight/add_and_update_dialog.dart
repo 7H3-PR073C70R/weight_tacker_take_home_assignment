@@ -75,13 +75,13 @@ class AddAndUpdateDialog extends HookConsumerWidget {
                         try {
                           !isEdit
                               ? ref.read(weightProvider).addWeight(Weight(
-                                  userWeight: double.parse(controller.text),
+                                  userWeight: double.tryParse(controller.text) ?? 0,
                                   id: '',
                                   date: Timestamp.now()))
                               : ref.read(weightProvider).editWeight(weight!
                                   .copyWith(
                                       userWeight:
-                                          double.parse(controller.text)));
+                                          double.tryParse(controller.text) ?? 0));
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

@@ -6,7 +6,7 @@ class AppString {
   static const fontFamily = 'Open Sans';
   static const appNameText = 'Weight Tracker';
   static const addWeightText = 'Add New Weight';
-  static const editWeightText = 'Edit Weight';
+  static const editWeightText = 'Update Weight';
   static const addButtonText = 'Add Weight';
   static const deleteButtonText = 'Delete Weight';
   static const weightHintText = '65.6';
@@ -15,9 +15,7 @@ class AppString {
   static const deleteWarning = 'Note: This action can\'t be undone';
   static const errorText = 'Something went wrong';
   static const noDataText = 'No data found. Please press the "+" button at the top right corner to add data.';
-
   static const logOutText = 'Log Out';
-
   static const invalidFormText = 'Weight cannot be empty';
 
 }
