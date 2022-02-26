@@ -8,7 +8,7 @@ class LoginNotifier extends ChangeNotifier {
   bool isLoading = false;
 
   void setState() {
-    isLoading != isLoading;
+    isLoading = !isLoading;
     notifyListeners();
   }
 
@@ -18,6 +18,7 @@ class LoginNotifier extends ChangeNotifier {
       await ref.read(authProvider).anonymousLogin();
       setState();
     } catch (e) {
+      setState();
       rethrow;
     }
   }
