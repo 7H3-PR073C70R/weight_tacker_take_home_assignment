@@ -20,7 +20,7 @@ class MyApp extends HookConsumerWidget {
     return MaterialApp(
       title: 'Weight Tracker',
       theme: ThemeData.dark(),
-      home: ref.read(authProvider).userID == null
+      home: ref.read(authenticationService).userID == null
           ? const LoginScreen()
           : const HomeScreen(),
       debugShowCheckedModeBanner: false,

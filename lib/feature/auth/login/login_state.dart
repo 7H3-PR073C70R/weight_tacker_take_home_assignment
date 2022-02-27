@@ -15,11 +15,21 @@ class LoginNotifier extends ChangeNotifier {
   Future<void> loginAnonymously() async {
     setState();
     try {
-      await ref.read(authProvider).anonymousLogin();
+      await ref.read(authenticationService).anonymousLogin();
       setState();
     } catch (e) {
       setState();
       rethrow;
+    }
+  }
+
+  Future<void> logOut() async {
+    setState();
+    try {
+      await ref.read(authenticationService).logout();
+      setState();
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }

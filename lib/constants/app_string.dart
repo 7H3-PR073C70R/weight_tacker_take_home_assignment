@@ -1,3 +1,5 @@
+import 'package:flutter/src/widgets/framework.dart';
+
 class AppString {
   static const anonymousLoginText = 'Login Anonymously';
   static const appStatementText = 'This app keep track of your weight.';
@@ -15,5 +17,6 @@ class AppString {
   static const noDataText = 'No data found. Please press the "+" button at the top right corner to add data.';
   static const logOutText = 'Log Out';
   static const invalidFormText = 'Weight cannot be empty';
+  static const invalidData = 'Invalid data';
 
 }

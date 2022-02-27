@@ -7,7 +7,7 @@ class WeightRepository {
   final Ref ref;
   WeightRepository(this.ref);
   final _firebaseAuth = FirebaseFirestore.instance;
-  String get _userId => ref.read(authProvider).userID ?? 'jhkhkhkskkjkjsk';
+  String get _userId => ref.read(authenticationService).userID ?? 'jhkhkhkskkjkjsk';
   CollectionReference get _collectionPath => _firebaseAuth
       .collection('Weights Tracker')
       .doc(_userId)

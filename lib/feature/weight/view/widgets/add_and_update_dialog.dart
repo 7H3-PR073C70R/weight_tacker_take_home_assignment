@@ -9,23 +9,23 @@ import '../../../../constants/app_string.dart';
 import '../../../../constants/app_text_styles.dart';
 import '../../../../shared/dummie_widgets/app_button.dart';
 import '../../model/weight.dart';
-import '../../controller.dart';
+import '../../weight_provider.dart';
 
 class AddAndUpdateDialog extends HookConsumerWidget {
   final bool isEdit;
   final Weight? weight;
-  const AddAndUpdateDialog({Key? key, this.isEdit = false, this.weight})
+  AddAndUpdateDialog({Key? key, this.isEdit = false, this.weight})
       : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = useTextEditingController(
-        text: weight == null
-            ? AppString.weightHintText
-            : weight!.userWeight.toString());
+        text: weight == null ? '' : weight!.userWeight.toString());
     return Dialog(
       child: Container(
-        height: 200,
+        height: 210,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,17 +38,28 @@ class AddAndUpdateDialog extends HookConsumerWidget {
               thickness: 5,
             ),
             const Spacer(),
-            TextFormField(
-              style: AppTextStyles.bodyTextStyle,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              controller: controller,
-              decoration: InputDecoration(
-                border: _outlineBorder(),
-                focusedBorder: _outlineBorder(),
-                hintText: AppString.weightHintText,
-                hintStyle: AppTextStyles.bodyTextStyle
-                    .copyWith(color: Colors.grey.shade400),
+            Form(
+              key: _formKey,
+              child: TextFormField(
+                style: AppTextStyles.bodyTextStyle,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                controller: controller,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return AppString.invalidFormText;
+                  } else if (double.tryParse(value) == null) {
+                    return AppString.invalidData;
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: _outlineBorder(),
+                  focusedBorder: _outlineBorder(),
+                  hintText: AppString.weightHintText,
+                  hintStyle: AppTextStyles.bodyTextStyle
+                      .copyWith(color: Colors.grey.shade400),
+                ),
               ),
             ),
             const Spacer(),
@@ -71,30 +82,8 @@ class AddAndUpdateDialog extends HookConsumerWidget {
                       text: !isEdit
                           ? AppString.addButtonText
                           : AppString.editWeightText,
-                      onTap: () async {
-                        try {
-                          !isEdit
-                              ? await ref.read(weightProvider).addWeight(Weight(
-                                  userWeight: double.tryParse(controller.text) ?? 0,
-                                  id: '',
-                                  date: Timestamp.now()))
-                              : await ref.read(weightProvider).editWeight(weight!
-                                  .copyWith(
-                                      userWeight:
-                                          double.tryParse(controller.text) ?? 0));
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              backgroundColor: AppColors.kcErrorColor,
-                              content: Text(
-                                AppString.errorText,
-                                style: AppTextStyles.bodyTextStyle,
-                              ),
-                            ),
-                          );
-                        }
-                        Navigator.of(context).pop();
-                      }),
+                      onTap: () => _addOrUpdateWeight(
+                          ref: ref, controller: controller, context: context)),
                 ),
               ],
             )
@@ -108,5 +97,35 @@ class AddAndUpdateDialog extends HookConsumerWidget {
     return OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: AppColors.kcWhiteColor));
+  }
+
+  void _addOrUpdateWeight(
+      {required WidgetRef ref,
+      required TextEditingController controller,
+      required BuildContext context}) async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState?.save();
+    try {
+      !isEdit
+          ? await ref.read(weightProvider).addWeight(Weight(
+              userWeight: double.tryParse(controller.text) ?? 0,
+              id: '',
+              date: Timestamp.now()))
+          : await ref.read(weightProvider).editWeight(weight!
+              .copyWith(userWeight: double.tryParse(controller.text) ?? 0));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: AppColors.kcErrorColor,
+          content: Text(
+            AppString.errorText,
+            style: AppTextStyles.bodyTextStyle,
+          ),
+        ),
+      );
+    }
+    Navigator.of(context).pop();
   }
 }

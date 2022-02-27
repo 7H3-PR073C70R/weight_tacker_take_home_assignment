@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weight_tracker/feature/weight/use_cases.dart/add_and_update_weight/add_and_update_dialog.dart';
+import 'package:weight_tracker/feature/weight/view/widgets/add_and_update_dialog.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_spacing.dart';
 import '../../../../constants/app_text_styles.dart';
 import '../../model/weight.dart';
-import '../../use_cases.dart/delete_weight/delete_confimation_dialog.dart';
+import 'delete_confimation_dialog.dart';
 
 class WeightCard extends StatelessWidget {
   final Weight weight;
@@ -28,7 +28,7 @@ class WeightCard extends StatelessWidget {
           SizedBox(
             width: AppSpacing.screenWidth(context) * 0.5,
             child: Text(
-              'You weight as of ${DateFormat('MMM dd, yyyy').format(weight.date.toDate())} is ${weight.userWeight}kg',
+              'You weight as of ${DateFormat('MMM dd, yyyy').format(weight.date.toDate())} is ${weight.userWeight.toStringAsFixed(2)}kg',
               style: AppTextStyles.bodyTextStyle,
               maxLines: 2,
             ),

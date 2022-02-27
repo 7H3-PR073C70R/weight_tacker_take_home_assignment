@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weight_tracker/feature/auth/firebase_auth.dart';
+import 'package:weight_tracker/feature/auth/login/login_state.dart';
 import 'package:weight_tracker/feature/auth/login/view/login_view.dart';
-import 'package:weight_tracker/feature/weight/controller.dart';
-import 'package:weight_tracker/feature/weight/use_cases.dart/add_and_update_weight/add_and_update_dialog.dart';
+import 'package:weight_tracker/feature/weight/weight_provider.dart';
+import 'package:weight_tracker/feature/weight/view/widgets/add_and_update_dialog.dart';
 import '../../../constants/app_string.dart';
 import '../../../constants/app_text_styles.dart';
 import '../model/weight.dart';
@@ -28,20 +28,20 @@ class HomeScreen extends ConsumerWidget {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) => const AddAndUpdateDialog(),
+                  builder: (context) => AddAndUpdateDialog(),
                 );
               },
               icon: const Icon(Icons.add)),
           IconButton(
-              onPressed: () {
-                ref.read(authProvider).logout();
+              onPressed: () async {
+                await ref.read(loginProvider).logOut();
                 Navigator.of(context).pushReplacement(
                     CupertinoPageRoute(builder: (_) => const LoginScreen()));
               },
               icon: const Icon(Icons.logout)),
         ],
       ),
-      body: Padding(
+      body: ref.watch(loginProvider).isLoading ? const Center(child: CircularProgressIndicator()) : Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
         child: StreamBuilder<QuerySnapshot>(
           stream: ref.watch(weightProvider).weightStream,

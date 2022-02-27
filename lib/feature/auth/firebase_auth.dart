@@ -16,5 +16,5 @@ class AuthenticationService {
   }
 }
 
-final authProvider = Provider<AuthenticationService>(
-    (_) => AuthenticationService());
+final authenticationService =
+    Provider<AuthenticationService>((_) => AuthenticationService());

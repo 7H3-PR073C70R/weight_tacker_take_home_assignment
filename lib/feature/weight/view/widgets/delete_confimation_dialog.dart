@@ -5,7 +5,7 @@ import '../../../../constants/app_spacing.dart';
 import '../../../../constants/app_string.dart';
 import '../../../../constants/app_text_styles.dart';
 import '../../../../shared/dummie_widgets/app_button.dart';
-import '../../controller.dart';
+import '../../weight_provider.dart';
 
 class ConfirmationAlertDialog extends ConsumerWidget {
   const ConfirmationAlertDialog({
