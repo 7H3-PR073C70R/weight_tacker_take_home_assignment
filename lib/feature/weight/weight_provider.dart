@@ -55,7 +55,6 @@ class WeightProvider extends ChangeNotifier {
     try {
       setState();
       await ref.read(authenticationService).logout();
-      // await Future.delayed(const Duration(seconds: 1));
       setState();
     } catch (e) {
       setState();
