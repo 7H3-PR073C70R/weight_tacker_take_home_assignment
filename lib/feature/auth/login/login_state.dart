@@ -22,16 +22,6 @@ class LoginNotifier extends ChangeNotifier {
       rethrow;
     }
   }
-
-  Future<void> logOut() async {
-    setState();
-    try {
-      await ref.read(authenticationService).logout();
-      setState();
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
 }
 
 final loginProvider = ChangeNotifierProvider((ref) => LoginNotifier(ref));

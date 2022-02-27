@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weight_tracker/feature/auth/firebase_auth.dart';
 import 'package:weight_tracker/feature/weight/model/weight.dart';
 import 'package:weight_tracker/repositoy/weight_repository.dart';
 
@@ -15,7 +16,7 @@ class WeightProvider extends ChangeNotifier {
   }
 
   get weightRepository => ref.read(weightRepositoryProvider);
-  Future<void> addWeight(Weight weight) async{
+  Future<void> addWeight(Weight weight) async {
     try {
       setState();
       await weightRepository.addWeight(weight);
@@ -42,6 +43,19 @@ class WeightProvider extends ChangeNotifier {
     try {
       setState();
       weightRepository.deleteWeight(id);
+      setState();
+    } catch (e) {
+      setState();
+
+      rethrow;
+    }
+  }
+
+  Future<void> logOut() async {
+    try {
+      setState();
+      await ref.read(authenticationService).logout();
+      // await Future.delayed(const Duration(seconds: 1));
       setState();
     } catch (e) {
       setState();

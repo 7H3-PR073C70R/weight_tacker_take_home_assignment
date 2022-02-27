@@ -42,7 +42,6 @@ class LoginScreen extends ConsumerWidget {
                     onTap: () async {
                       try {
                         await ref.read(loginProvider).loginAnonymously();
-                        ref.read(loginProvider).dispose();
                         Navigator.of(context).pushReplacement(
                             CupertinoPageRoute(
                                 builder: (_) => const HomeScreen()));

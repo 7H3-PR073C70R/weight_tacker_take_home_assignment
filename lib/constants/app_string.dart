@@ -16,6 +16,7 @@ class AppString {
   static const errorText = 'Something went wrong';
   static const noDataText = 'No data found. Please press the "+" button at the top right corner to add data.';
   static const logOutText = 'Log Out';
+  static const loggingOutText = 'Logging Out';
   static const invalidFormText = 'Weight cannot be empty';
   static const invalidData = 'Invalid data';
 
