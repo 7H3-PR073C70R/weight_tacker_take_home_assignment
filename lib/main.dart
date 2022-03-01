@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weight_tracker/feature/auth/firebase_auth.dart';
-import 'package:weight_tracker/feature/weight/view/weight_view.dart';
-import 'feature/auth/login/view/login_view.dart';
+import 'package:weight_tracker/src/features/home/presentation/pages/home.dart';
+import 'src/features/login/data/repositories/login_repository_impl.dart';
+import 'src/features/login/presentation/pages/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding
@@ -20,9 +20,9 @@ class MyApp extends HookConsumerWidget {
     return MaterialApp(
       title: 'Weight Tracker',
       theme: ThemeData.dark(),
-      home: ref.read(authenticationService).userID == null
-          ? const LoginScreen()
-          : const HomeScreen(),
+      home: ref.read(authRepository).uid == null
+          ? const LoginPage()
+          : const HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
